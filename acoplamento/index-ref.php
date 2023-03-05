@@ -1,9 +1,16 @@
 <?php
+
 class Order
 {
     private $items = array();
     private $total = 0;
     private $taxRate = 0.10;
+    private $db;
+
+    public function __construct(Database $db)
+    {
+        $this->db = $db;
+    }
 
     public function addItem($item, $price)
     {
@@ -23,7 +30,6 @@ class Order
 
     public function save()
     {
-        $db = new Database();
-        $db->saveOrder($this->items, $this->getTotal());
+        $this->db->saveOrder($this->items, $this->getTotal());
     }
 }
